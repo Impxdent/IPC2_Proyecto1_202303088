@@ -1,5 +1,5 @@
 ﻿using IPC2_Proyecto1_202303088.Estructuras;
-using IPC2_Proyecto1_202303088.Modelos;
+using IPC2_Proyecto1_202303088.XML;
 using IPC2_Proyecto1_202303088.Logica;
 
 namespace IPC2_Proyecto1_202303088
@@ -8,30 +8,80 @@ namespace IPC2_Proyecto1_202303088
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("=== PRUEBA SIMULADOR ===");
+            ListaPaciente listaPacientes = new ListaPaciente();
+            LectorXML lector = new LectorXML();
+            Simulador simulador = new Simulador();
 
-            Paciente p = new Paciente();
-            p.Nombre = "Paciente Prueba";
-            p.Edad = 30;
-            p.PeriodosMaximos = 10;
-            p.M = 3;
+            bool salir = false;
 
-            Rejilla r = new Rejilla(3);
+            while (!salir)
+            {
+                Console.WriteLine("=========================");
+                Console.WriteLine("     MENU PRINCIPAL");
+                Console.WriteLine("=========================");
+                Console.WriteLine("1. Cargar XML");
+                Console.WriteLine("2. Analizar pacientes");
+                Console.WriteLine("3. Limpiar memoria");
+                Console.WriteLine("4. Salir");
+                Console.Write("Seleccione una opcion: ");
 
-            // Bloque estable (caso mortal porque se repite en 1)
-            r.Matriz[0, 0] = 1;
-            r.Matriz[0, 1] = 1;
-            r.Matriz[1, 0] = 1;
-            r.Matriz[1, 1] = 1;
+                string opcion = Console.ReadLine();
 
-            p.RejillaInicial = r;
+                switch (opcion)
+                {
+                    case "1":
+                        Console.Write("Ingrese ruta del XML: ");
+                        string ruta = Console.ReadLine();
+                        listaPacientes = lector.CargarPacientes(ruta);
+                        Console.WriteLine("Los pacientes se cargaron exitosamente");
+                        break;
 
-            Simulador sim = new Simulador();
-            sim.AnalizarPaciente(p);
+                    case "2":
+                        AnalizarPacientes(listaPacientes, simulador);
+                        break;
 
-            Console.WriteLine("Resultado: " + p.Resultado);
-            Console.WriteLine("N: " + p.N);
-            Console.WriteLine("N1: " + p.N1);
+                    case "3":
+                        listaPacientes.Limpiar();
+                        Console.WriteLine("La memoria se limpio");
+                        break;
+
+                    case "4":
+                        salir = true;
+                        break;
+
+                    default:
+                        Console.WriteLine("Error, ingrese una opcion valida");
+                        break;
+                }
+            }
+        }
+
+        static void AnalizarPacientes(ListaPaciente lista, Simulador simulador)
+        {
+            NodoPaciente actual = lista.ObtenerCabeza();
+
+            if (actual == null)
+            {
+                Console.WriteLine("Error, no hay pacientes cargados");
+                return;
+            }
+
+            while (actual != null)
+            {
+                simulador.AnalizarPaciente(actual.Dato);
+
+                Console.WriteLine("Paciente: " + actual.Dato.Nombre);
+                Console.WriteLine("Edad: " + actual.Dato.Edad);
+                Console.WriteLine("Resultado: " + actual.Dato.Resultado);
+
+                if (actual.Dato.Resultado != "leve")
+                {
+                    Console.WriteLine("N: " + actual.Dato.N);
+                    Console.WriteLine("N1: " + actual.Dato.N1);
+                }
+
+                actual = actual.Siguiente;
+            }
         }
     }
 }
