@@ -32,8 +32,16 @@ namespace IPC2_Proyecto1_202303088
                     case "1":
                         Console.Write("Ingrese ruta del XML: ");
                         string ruta = Console.ReadLine();
-                        listaPacientes = lector.CargarPacientes(ruta);
-                        Console.WriteLine("Los pacientes se cargaron exitosamente");
+                        try
+                        {
+                            listaPacientes = lector.CargarPacientes(ruta);
+                            Console.WriteLine("Los pacientes se cargaron exitosamente");
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Error al cargar el archivo");
+                        }
+                        
                         break;
 
                     case "2":
