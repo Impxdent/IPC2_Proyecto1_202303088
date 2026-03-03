@@ -76,11 +76,20 @@ namespace IPC2_Proyecto1_202303088
 
             while (actual != null)
             {
-                simulador.AnalizarPaciente(actual.Dato);
-
                 Console.WriteLine("Paciente: " + actual.Dato.Nombre);
                 Console.WriteLine("Edad: " + actual.Dato.Edad);
-                Console.WriteLine("Resultado: " + actual.Dato.Resultado);
+                Console.WriteLine("Tamaño de rejilla: " + actual.Dato.M + "x" + actual.Dato.M);
+                Console.WriteLine("Periodos maximos: " + actual.Dato.PeriodosMaximos);
+
+                simulador.AnalizarPaciente(actual.Dato);
+
+                int contagiadas = actual.Dato.RejillaInicial.ContarContagiadas();
+                int sanas = actual.Dato.RejillaInicial.ContarSanas();
+
+                Console.WriteLine("Celulas contagiadas iniciales: " + contagiadas);
+                Console.WriteLine("Celulas sanas iniciales: " + sanas);
+
+                Console.WriteLine("Resultado final: " + actual.Dato.Resultado);
 
                 if (actual.Dato.Resultado != "leve")
                 {
@@ -90,6 +99,8 @@ namespace IPC2_Proyecto1_202303088
 
                 actual = actual.Siguiente;
             }
+            Console.WriteLine("Presione una tecla para continuar");
+            Console.ReadKey();
         }
     }
 }
