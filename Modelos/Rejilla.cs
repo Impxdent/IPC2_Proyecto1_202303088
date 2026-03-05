@@ -85,27 +85,28 @@ namespace IPC2_Proyecto1_202303088.Modelos
             return patron;
         }
 
-        // Contar células contagiadas
         public int ContarContagiadas()
         {
-            int total = 0;
+            int contador = 0;
 
             for (int i = 0; i < Tamaño; i++)
             {
                 for (int j = 0; j < Tamaño; j++)
                 {
                     if (Matriz[i, j] == 1)
-                        total++;
+                    {
+                        contador++;
+                    }
                 }
             }
 
-            return total;
+            return contador;
         }
 
-        // Contar células sanas
         public int ContarSanas()
         {
-            return (Tamaño * Tamaño) - ContarContagiadas();
+            int total = Tamaño * Tamaño;
+            return total - ContarContagiadas();
         }
     }
 }

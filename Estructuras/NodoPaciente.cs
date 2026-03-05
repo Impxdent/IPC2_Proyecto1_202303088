@@ -1,13 +1,15 @@
+using IPC2_Proyecto1_202303088.Modelos;
+
 namespace IPC2_Proyecto1_202303088.Estructuras
 {
     public class NodoPaciente
     {
-        public Modelos.Paciente Dato;
+        public Paciente Dato;
         public NodoPaciente Siguiente;
 
-        public NodoPaciente(Modelos.Paciente dato)
+        public NodoPaciente(Paciente paciente)
         {
-            Dato = dato;
+            Dato = paciente;
             Siguiente = null;
         }
     }
