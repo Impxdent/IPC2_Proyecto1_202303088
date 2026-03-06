@@ -1,0 +1,22 @@
+digraph G {
+node [shape=plaintext];
+tabla [label=<
+<table border='1' cellborder='1' cellspacing='0'>
+<tr>
+<td bgcolor='red'>1</td>
+<td bgcolor='red'>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td bgcolor='red'>1</td>
+<td bgcolor='red'>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</table>
+>];
+}

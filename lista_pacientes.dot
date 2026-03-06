@@ -1,0 +1,5 @@
+digraph G {
+rankdir=LR;
+node [shape=box];
+n0 [label="Juan\nEdad: 25"];
+}

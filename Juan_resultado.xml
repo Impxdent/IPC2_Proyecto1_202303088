@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<pacientes>
+  <paciente>
+    <datospersonales>
+      <nombre>Juan</nombre>
+      <edad>25</edad>
+    </datospersonales>
+    <periodos>10</periodos>
+    <m>3</m>
+    <resultado>MORTAL</resultado>
+    <n>0</n>
+    <n1>1</n1>
+  </paciente>
+</pacientes>

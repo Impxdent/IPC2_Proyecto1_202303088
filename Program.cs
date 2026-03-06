@@ -13,6 +13,8 @@ namespace IPC2_Proyecto1_202303088
             ListaPaciente listaPacientes = new ListaPaciente();
             LectorXML lector = new LectorXML();
             Simulador simulador = new Simulador();
+            Graficador graficador = new Graficador();
+            GeneradorXML generadorXML = new GeneradorXML();
 
             bool salir = false;
 
@@ -25,8 +27,9 @@ namespace IPC2_Proyecto1_202303088
                 Console.WriteLine("2. Analizar pacientes");
                 Console.WriteLine("3. Buscar paciente");
                 Console.WriteLine("4. Mostrar pacientes cargados");
-                Console.WriteLine("5. Limpiar memoria");
-                Console.WriteLine("6. Salir");
+                Console.WriteLine("5. Graficar lista de pacientes");
+                Console.WriteLine("6. Limpiar memoria");
+                Console.WriteLine("7. Salir");
                 Console.Write("Seleccione una opcion: ");
 
                 string opcion = Console.ReadLine();
@@ -59,10 +62,13 @@ namespace IPC2_Proyecto1_202303088
                         listaPacientes.MostrarPacientes();
                         break;
                     case "5":
+                        graficador.GraficarListaPacientes(listaPacientes);
+                        break;
+                    case "6":
                         listaPacientes.Limpiar();
                         Console.WriteLine("La memoria se limpio");
                         break;
-                    case "6":
+                    case "7":
                         salir = true;
                         break;
 
@@ -76,6 +82,9 @@ namespace IPC2_Proyecto1_202303088
         static void AnalizarPacientes(ListaPaciente lista, Simulador simulador)
         {
             NodoPaciente actual = lista.ObtenerCabeza();
+
+            GeneradorDot generador = new GeneradorDot();
+            GeneradorXML generadorXML = new GeneradorXML();
 
             if (actual == null)
             {
@@ -102,12 +111,15 @@ namespace IPC2_Proyecto1_202303088
                 Console.WriteLine("Celulas contagiadas: " + contagiadas);
                 Console.WriteLine("Celulas sanas: " + sanas);
 
-                GeneradorDot generador = new GeneradorDot();
                 generador.GenerarImagen(paciente.RejillaInicial, paciente.Nombre + "_inicial");
 
                 Console.WriteLine("Ejecutando simulacion");
 
                 simulador.AnalizarPaciente(paciente);
+
+                generador.GenerarImagen(paciente.RejillaInicial, paciente.Nombre + "_final");
+
+                generadorXML.GenerarPaciente(paciente);
 
                 Console.WriteLine("Resultado final: " + paciente.Resultado);
 
